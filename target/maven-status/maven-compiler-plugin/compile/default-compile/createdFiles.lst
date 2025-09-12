@@ -1,0 +1,7 @@
+com\example\news\model\News.class
+com\example\news\repository\NewsRepository.class
+com\example\news\model\NewsDTO.class
+com\example\news\NewsShortsAgentApplication.class
+com\example\news\service\NewsService.class
+com\example\news\controller\NewsController.class
+com\example\news\model\NewsDTO$SourceDTO.class
