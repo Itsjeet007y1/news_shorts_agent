@@ -75,4 +75,9 @@ public class NewsController {
 		newsService.deleteNews(id);
 		return ResponseEntity.noContent().build();
 	}
+
+	@GetMapping("/testConnectivity")
+	public ResponseEntity<String> testConnectivity() {
+		return ResponseEntity.ok("Connection successful");
+	}
 }
