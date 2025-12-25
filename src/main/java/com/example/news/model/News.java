@@ -20,7 +20,7 @@ public class  News {
 	private String description;
 	private String url;
 	@Lob
-	@Column(name = "base64Image", columnDefinition = "LONGTEXT")
+	@Column(name = "base64Image")
 	private String base64Image;
 	@Column(name = "publishedAt")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

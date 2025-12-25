@@ -26,11 +26,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Use H2 in-memory database for development/runtime -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
-			<scope>runtime</scope>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<!-- no scope so driver is available on the classpath for all run modes -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
