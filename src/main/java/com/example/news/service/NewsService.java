@@ -32,6 +32,10 @@ public class NewsService {
 		return newsRepository.save(news);
 	}
 
+	public List<News> saveAllNews(List<News> newsList) {
+		return newsRepository.saveAll(newsList);
+	}
+
 	public News updateNews(Long id, News updatedNews) {
 		return newsRepository.findById(id).map(news -> {
 			String existingImage = news.getBase64Image();

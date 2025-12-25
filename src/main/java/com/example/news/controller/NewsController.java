@@ -80,4 +80,17 @@ public class NewsController {
 	public ResponseEntity<String> testConnectivity() {
 		return ResponseEntity.ok("Connection successful");
 	}
+
+	@PostMapping("/bulk")
+	public ResponseEntity<?> createNewsBulk(@RequestBody List<News> newsList) {
+		if (newsList == null || newsList.isEmpty()) {
+			return ResponseEntity.badRequest().body("No news items provided.");
+		}
+		try {
+			List<News> saved = newsService.saveAllNews(newsList);
+			return ResponseEntity.ok(saved);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("Invalid input: " + e.getMessage());
+		}
+	}
 }

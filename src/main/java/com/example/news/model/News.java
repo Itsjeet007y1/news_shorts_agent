@@ -1,10 +1,12 @@
 package com.example.news.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "news")
 public class  News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class  News {
 	@Column(name = "base64Image", columnDefinition = "LONGTEXT")
 	private String base64Image;
 	@Column(name = "publishedAt")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime publishedAt;
 	private String content;
 	private String category;
