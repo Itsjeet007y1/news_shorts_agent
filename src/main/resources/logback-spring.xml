@@ -1,0 +1,16 @@
+<!-- ...existing code... -->
+<configuration>
+  <!-- ...existing code... -->
+
+  <!-- Silence Hibernate SQL and bind-parameter logs -->
+  <logger name="org.hibernate.SQL" level="OFF"/>
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="OFF"/>
+  <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="OFF"/>
+
+  <!-- If using p6spy or datasource-proxy, silence them here -->
+  <logger name="p6spy" level="OFF"/>
+  <logger name="com.p6spy" level="OFF"/>
+
+  <!-- ...existing code... -->
+</configuration>
+
