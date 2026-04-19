@@ -2,12 +2,12 @@ package com.example.news.controller;
 
 import com.example.news.model.News;
 import com.example.news.service.NewsService;
+import com.example.news.service.GcsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -16,6 +16,9 @@ import java.util.List;
 public class NewsController {
 	@Autowired
 	private NewsService newsService;
+
+	@Autowired
+	private GcsService gcsService;
 
 	@GetMapping
 	public List<News> getAllNews(@RequestParam(value = "language", required = false) String language) {
@@ -39,11 +42,13 @@ public class NewsController {
 		}
 		try {
 			if (image != null && !image.isEmpty()) {
-				String base64 = Base64.getEncoder().encodeToString(image.getBytes());
-				news.setBase64Image(base64);
+				String imageUrl = gcsService.uploadFile(image);
+				news.setImageUrl(imageUrl);
 			}
-		} catch (java.io.IOException e) {
-			return ResponseEntity.status(500).body("Error processing image: " + e.getMessage());
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body("Invalid file: " + e.getMessage());
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Error uploading image to GCS: " + e.getMessage());
 		}
 		return ResponseEntity.ok(newsService.saveNews(news));
 	}
@@ -59,11 +64,13 @@ public class NewsController {
 		}
 		try {
 			if (image != null && !image.isEmpty()) {
-				String base64 = Base64.getEncoder().encodeToString(image.getBytes());
-				news.setBase64Image(base64);
+				String imageUrl = gcsService.uploadFile(image);
+				news.setImageUrl(imageUrl);
 			}
-		} catch (java.io.IOException e) {
-			return ResponseEntity.status(500).body("Error processing image: " + e.getMessage());
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body("Invalid file: " + e.getMessage());
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Error uploading image to GCS: " + e.getMessage());
 		}
 		News updated = newsService.updateNews(id, news);
 		if (updated == null) return ResponseEntity.notFound().build();

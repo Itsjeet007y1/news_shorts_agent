@@ -1,0 +1,23 @@
+# Example Dockerfile optimized for Cloud Run with GCS
+# This Dockerfile builds a multi-stage image for efficient deployment
+
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17-jre-slim
+WORKDIR /app
+COPY --from=builder /app/target/news-shorts-agent-0.0.1-SNAPSHOT.jar app.jar
+
+# Set PORT for Cloud Run
+ENV PORT=8080
+EXPOSE 8080
+
+# Cloud Run specific settings
+ENV JAVA_OPTS="-Xmx256m -Xms256m"
+
+# Run the application
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar --server.port=${PORT}"]
+

@@ -38,17 +38,15 @@ public class NewsService {
 
 	public News updateNews(Long id, News updatedNews) {
 		return newsRepository.findById(id).map(news -> {
-			String existingImage = news.getBase64Image();
-			String incomingImage = updatedNews.getBase64Image();
+			String existingImageUrl = news.getImageUrl();
+			String incomingImageUrl = updatedNews.getImageUrl();
 			boolean shouldUpdateImage = false;
-			if (incomingImage != null && !incomingImage.isEmpty() && !isEmptyOrDefaultImage(incomingImage)) {
-				// Only update if incoming image is different from existing
-				if (existingImage == null || !existingImage.equals(incomingImage)) {
-					shouldUpdateImage = true;
-				}
+			if (incomingImageUrl != null && !incomingImageUrl.isEmpty() && !incomingImageUrl.equals(existingImageUrl)) {
+				// Only update if incoming image URL is different from existing
+				shouldUpdateImage = true;
 			}
 			if (shouldUpdateImage) {
-				news.setBase64Image(incomingImage);
+				news.setImageUrl(incomingImageUrl);
 			}
 			news.setSourceId(updatedNews.getSourceId());
 			news.setSourceName(updatedNews.getSourceName());
@@ -64,12 +62,7 @@ public class NewsService {
 		}).orElse(null);
 	}
 
-	private boolean isEmptyOrDefaultImage(String image) {
-		// Check for empty string or string of all 'A's (base64 for zeros)
-		if (image == null || image.isEmpty()) return true;
-		// Optionally, check for a known default base64 string if needed
-		return false;
-	}
+	// ...existing code...
 
 	public void deleteNews(Long id) {
 		newsRepository.deleteById(id);

@@ -19,9 +19,8 @@ public class  News {
 	private String title;
 	private String description;
 	private String url;
-	@Lob
-	@Column(name = "base64Image")
-	private String base64Image;
+	@Column(name = "imageUrl")
+	private String imageUrl;
 	@Column(name = "publishedAt")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime publishedAt;
@@ -50,8 +49,8 @@ public class  News {
 	public void setDescription(String description) { this.description = description; }
 	public String getUrl() { return url; }
 	public void setUrl(String url) { this.url = url; }
-	public String getBase64Image() { return base64Image; }
-	public void setBase64Image(String base64Image) { this.base64Image = base64Image; }
+	public String getImageUrl() { return imageUrl; }
+	public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 	public LocalDateTime getPublishedAt() { return publishedAt; }
 	public void setPublishedAt(LocalDateTime publishedAt) { this.publishedAt = publishedAt; }
 	public String getContent() { return content; }
