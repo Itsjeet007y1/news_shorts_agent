@@ -1,27 +1,20 @@
 package com.example.news.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "news")
 public class  News {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public static final String COLLECTION_NAME = "news";
+
 	private Long id;
-	@Column(name = "sourceId")
 	private String sourceId;
-	@Column(name = "sourceName")
 	private String sourceName;
 	private String author;
 	private String title;
 	private String description;
 	private String url;
-	@Column(name = "imageUrl")
 	private String imageUrl;
-	@Column(name = "publishedAt")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime publishedAt;
 	private String content;
